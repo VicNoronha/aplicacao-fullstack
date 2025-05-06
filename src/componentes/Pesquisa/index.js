@@ -1,7 +1,8 @@
 import Input from '../Input'
 import styled from 'styled-components'
-import { useState } from 'react'
-import { livros } from './dadosPesquisa'
+import { useEffect, useState } from 'react'
+import { getLivros } from '../../servico/livros' // Ajustar importação
+import { postFavorito } from '../../servico/favoritos'
 
 const PesquisaContainer = styled.section`
     background-image: linear-gradient(90deg, #002F52 35%, #326589 165%);
@@ -31,7 +32,6 @@ const Resultado = styled.div`
     align-items: center;
     margin-bottom: 20px;
     cursor: pointer;
-
     p {
         width: 200px;
     }
@@ -47,6 +47,21 @@ const Resultado = styled.div`
 
 function Pesquisa() {
     const [livrosPesquisados, setLivrosPesquisados] = useState([])
+    const [livros, setLivros] = useState([])
+
+    useEffect(() => {
+        fetchLivros()
+    }, [])
+
+    async function fetchLivros() {
+        const livrosDaAPI = await getLivros()
+        setLivros(livrosDaAPI)
+    }
+
+    async function insertFavorito(id){
+        await postFavorito(id)
+        alert(`Livro de id:${id} inserido!`)
+    }
 
     return (
         <PesquisaContainer>
@@ -55,14 +70,16 @@ function Pesquisa() {
             <Input
                 placeholder="Escreva sua próxima leitura"
                 onBlur={evento => {
-                    const textoDigitado = evento.target.value
-                    const resultadoPesquisa = livros.filter( livro => livro.nome.includes(textoDigitado))
+                    const textoDigitado = evento.target.value.toLowerCase() // Tornar a busca case-insensitive
+                    const resultadoPesquisa = livros.filter(livro => 
+                        livro.nome.toLowerCase().includes(textoDigitado) // Tornar a busca case-insensitive
+                    )
                     setLivrosPesquisados(resultadoPesquisa)
                 }}
             />
-            { livrosPesquisados.map( livro => (
-                <Resultado>
-                    <img src={livro.src}/>
+            {livrosPesquisados.map(livro => (
+                <Resultado onClick={() => insertFavorito(livro.id)}>
+                    <img src={livro.src || 'caminho/para/imagem/padrão.png'} alt={livro.nome} /> {/* Imagem padrão */}
                     <p>{livro.nome}</p>
                 </Resultado>
             ) ) }

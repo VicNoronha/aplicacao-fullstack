@@ -1,34 +1,49 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import Home from './rotas/Home';
 import reportWebVitals from './reportWebVitals';
-import { createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from './componentes/Header';
+import Favoritos from './rotas/Favoritos';
 
-const Globalstyle= createGlobalStyle `
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      }
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-    code {
-      font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
-      }
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
 
-    li {
-       list-style:none;
-    }
-  `
+  li {
+    list-style: none;    
+  }
+
+  a {
+    text-decoration: none;
+    color: unset;
+  }
+
+`
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Globalstyle />
-    <App />
+    <GlobalStyle />
+    <BrowserRouter>
+    <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/favoritos' element={<Favoritos />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

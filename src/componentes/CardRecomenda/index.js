@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { Titulo } from "../Titulo"
+import styled from "styled-components";
+import { Titulo } from "../Titulo";
 
 const Card = styled.div`
     align-items: center;
@@ -12,7 +12,7 @@ const Card = styled.div`
     padding: 25px 20px;
     justify-content: space-around;
     width: 100%;  
-`
+`;
 
 const Botao = styled.button`
     background-color: #EB9B00;
@@ -28,24 +28,24 @@ const Botao = styled.button`
     &:hover {
         cursor: pointer;
     }
-`
+`;
 
 const Descricao = styled.p`
     max-width: 300px;
-`
+`;
 
 const Subtitulo = styled.h4`
     color: #002F52;
     font-size: 18px;
     font-weight: bold;
     margin: 15px 0;
-`
+`;
 
 const ImgLivro = styled.img`
     width: 150px;
-`
+`;
 
-function CardRecomenda({titulo, subtitulo, descricao, img}) {
+function CardRecomenda({ titulo, subtitulo, descricao, img }) {
     return (
         <Card>
             <div>
@@ -54,11 +54,11 @@ function CardRecomenda({titulo, subtitulo, descricao, img}) {
                 <Descricao>{descricao}</Descricao>
             </div>
             <div>
-                <ImgLivro src={img}/>
+                <ImgLivro src={img} alt={`Capa do livro ${titulo}`} />
                 <Botao>Saiba mais</Botao>
             </div>
         </Card>  
-    )
+    );
 }
 
-export default CardRecomenda
+export default CardRecomenda;

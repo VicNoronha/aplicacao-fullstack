@@ -1,4 +1,4 @@
-import { livros } from './dadosUltimosLancamentos.JS'
+import { livros } from './dadosUltimosLancamentos.js'; // Importação correta de uma exportação nomeada
 import { Titulo } from '../Titulo'
 import CardRecomenda from '../CardRecomenda'
 import imagemLivro from '../../imagens/livro2.png' 
@@ -19,6 +19,11 @@ const NovosLivrosContainer = styled.div`
     cursor: pointer;
 `
 
+const LivroImagem = styled.img`
+    width: 150px;  // Definindo um tamanho fixo para as imagens
+    margin: 0 10px; // Adicionando um pequeno espaçamento entre as imagens
+`
+
 function UltimosLancamentos() {
     return (
         <UltimosLancamentosContainer>
@@ -29,8 +34,12 @@ function UltimosLancamentos() {
                 ÚLTIMOS LANÇAMENTOS
             </Titulo>
             <NovosLivrosContainer>
-                {livros.map( livro => (
-                    <img src={livro.src}/>
+                {livros.map(livro => (
+                    <LivroImagem
+                        key={livro.id} // Adicionando a chave única para cada item
+                        src={livro.src}
+                        alt={livro.nome} // Para melhorar a acessibilidade
+                    />
                 ))}
             </NovosLivrosContainer>
             <CardRecomenda

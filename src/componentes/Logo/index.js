@@ -21,3 +21,5 @@
         </LogoContainer>
      )
  }
+
+ export default Logo
